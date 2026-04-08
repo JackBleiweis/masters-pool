@@ -15,6 +15,21 @@ npm run lint
 npm run format  # Prettier
 ```
 
+## GitHub & Vercel
+
+This repo lives at the **project root** (`masters-pool/` is the app; `package.json` is here).
+
+1. On GitHub: **New repository** (empty, no README). Copy the remote URL.
+2. From this directory:
+
+```bash
+git remote add origin https://github.com/YOUR_USER/YOUR_REPO.git
+git push -u origin main
+```
+
+3. In [Vercel](https://vercel.com): **Add New Project** → import that GitHub repo. Defaults are usually correct: **Framework Preset** Vite, **Build Command** `npm run build`, **Output Directory** `dist`.
+4. [`vercel.json`](vercel.json) rewrites all routes to `index.html` so React Router (`/pool`, `/tournament`) works on refresh and deep links.
+
 ## Data & picks
 
 - **Tournament data**: Masters only — `GET https://site.api.espn.com/apis/site/v2/sports/golf/pga/scoreboard/{MASTERS_EVENT_ID}` (`MASTERS_EVENT_ID` in [`src/lib/golfApi.ts`](src/lib/golfApi.ts); update yearly when ESPN assigns a new Masters event id).

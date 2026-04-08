@@ -1,0 +1,218 @@
+@use '../styles/design-system' as ds;
+
+.shell {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: ds.$space-6 ds.$space-4;
+  box-sizing: border-box;
+  background: linear-gradient(165deg, ds.$color-bg-deep 0%, ds.$color-bg-mid 45%, #0a1812 100%);
+  color: ds.$color-text;
+  font-family: ds.$font-sans;
+}
+
+.loadingInner {
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.orbit {
+  margin: 0 auto ds.$space-8;
+  width: 120px;
+  height: 120px;
+}
+
+.orbitSpin {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  animation: intro-spin 12s linear infinite;
+}
+
+.orbitDot {
+  position: absolute;
+  font-size: 1.25rem;
+  color: ds.$color-accent;
+  opacity: 0.9;
+
+  &[data-i='0'] {
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  &[data-i='1'] {
+    bottom: 12%;
+    left: 8%;
+  }
+
+  &[data-i='2'] {
+    bottom: 12%;
+    right: 8%;
+  }
+}
+
+@keyframes intro-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.status {
+  margin: 0 0 ds.$space-4;
+  font-size: ds.$font-small;
+  color: ds.$color-text-muted;
+  min-height: 2.6em;
+}
+
+.barTrack {
+  height: 6px;
+  border-radius: ds.$radius-full;
+  background: ds.$color-border-subtle;
+  overflow: hidden;
+}
+
+.barFill {
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, ds.$color-surface-elevated, ds.$color-accent);
+  transform-origin: left center;
+  transition: transform 0.08s linear;
+}
+
+.percent {
+  margin: ds.$space-2 0 0;
+  font-size: ds.$font-caption;
+  font-variant-numeric: tabular-nums;
+  color: ds.$color-text-muted;
+}
+
+.revealInner {
+  width: 100%;
+  max-width: ds.$max-content-width;
+  margin: 0 auto;
+}
+
+.revealHead {
+  margin-bottom: ds.$space-6;
+  text-align: center;
+}
+
+.revealTitle {
+  margin: 0 0 ds.$space-2;
+  font-size: ds.$font-title;
+  font-weight: ds.$font-weight-medium;
+  line-height: ds.$line-height-heading;
+}
+
+.revealSub {
+  margin: 0;
+  font-size: ds.$font-small;
+  color: ds.$color-text-muted;
+  line-height: ds.$line-height-body;
+}
+
+.teamList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.teamItem {
+  margin-bottom: ds.$space-2;
+  border-radius: ds.$radius-md;
+  border: 1px solid ds.$color-border-subtle;
+  background: ds.$color-surface;
+  overflow: hidden;
+}
+
+.predRank {
+  flex-shrink: 0;
+  width: 1.75rem;
+  font-size: ds.$font-caption;
+  font-weight: ds.$font-weight-medium;
+  font-variant-numeric: tabular-nums;
+  color: ds.$color-accent;
+  text-align: center;
+}
+
+.teamBtn {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: ds.$space-3;
+  padding: ds.$space-3 ds.$space-4;
+  border: none;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: ds.$font-weight-medium;
+  text-align: left;
+  cursor: pointer;
+  transition: background ds.$transition-fast;
+
+  @media (hover: hover) {
+    &:hover {
+      background: rgba(255, 255, 255, 0.04);
+    }
+  }
+}
+
+.teamName {
+  flex: 1;
+  min-width: 0;
+}
+
+.teamChevron {
+  flex-shrink: 0;
+  color: ds.$color-accent;
+  font-size: 0.75rem;
+}
+
+.analysis {
+  padding: 0 ds.$space-4 ds.$space-4;
+  border-top: 1px solid ds.$color-border-subtle;
+}
+
+.analysisP {
+  margin: 0 0 ds.$space-3;
+  font-size: ds.$font-caption;
+  color: ds.$color-text-muted;
+  line-height: ds.$line-height-body;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.ctaWrap {
+  margin-top: ds.$space-8;
+  text-align: center;
+}
+
+.cta {
+  padding: ds.$space-3 ds.$space-8;
+  min-height: 48px;
+  border-radius: ds.$radius-sm;
+  border: 1px solid ds.$color-accent-soft;
+  background: ds.$color-surface-elevated;
+  color: ds.$color-accent;
+  font: inherit;
+  font-size: ds.$font-small;
+  font-weight: ds.$font-weight-medium;
+  cursor: pointer;
+  transition:
+    background ds.$transition-fast,
+    border-color ds.$transition-fast;
+
+  @media (hover: hover) {
+    &:hover {
+      border-color: ds.$color-accent;
+      background: ds.$color-surface;
+    }
+  }
+}

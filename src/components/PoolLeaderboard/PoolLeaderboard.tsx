@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { poolTeams } from '../../data/poolTeams'
 import { positionDisplayMap } from '../../lib/golfApi'
 import type { TournamentSnapshot } from '../../lib/golfApi'
@@ -23,6 +24,7 @@ function formatUpdated(d: Date | null): string {
 }
 
 export function PoolLeaderboard({ snapshot, lastUpdated, onRefresh, busy }: PoolLeaderboardProps) {
+  const navigate = useNavigate()
   const [rulesOpen, setRulesOpen] = useState(false)
   const posMap = positionDisplayMap(snapshot.players)
   const standings = buildPoolStandings(poolTeams, snapshot.players, posMap)
@@ -40,6 +42,9 @@ export function PoolLeaderboard({ snapshot, lastUpdated, onRefresh, busy }: Pool
           ) : null}
         </div>
         <div className={styles.actions}>
+          <button type="button" className={styles.analysis} onClick={() => navigate('/intro')}>
+            AI analysis
+          </button>
           <button type="button" className={styles.rules} onClick={() => setRulesOpen(true)}>
             Rules
           </button>

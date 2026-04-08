@@ -11,7 +11,7 @@ export interface PoolTeamDefinition {
   teamName: string
   /** Public URL under `/photos/profiles/`, or null for initials fallback. */
   avatarSrc: string | null
-  /** Drafted golfer ESPN ids (usually 5; fewer if the slow draft is still open). */
+  /** Drafted golfer ESPN ids (five per team). */
   espnAthleteIds: readonly string[]
 }
 
@@ -79,6 +79,7 @@ export const poolTeams: PoolTeamDefinition[] = [
       '4587', // Shane Lowry
       '5409', // Russell Henley
       '9938', // Sam Burns
+      '3832', // Alex Noren
     ],
   },
   {
@@ -133,6 +134,7 @@ export const poolTeams: PoolTeamDefinition[] = [
       '4364873', // Viktor Hovland
       '11382', // Sungjae Im
       '8961', // Sepp Straka
+      '9025', // Daniel Berger
     ],
   },
 ]
