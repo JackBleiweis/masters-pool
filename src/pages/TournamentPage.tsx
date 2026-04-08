@@ -10,12 +10,28 @@ export default function TournamentPage() {
   const { data, loading, error, lastUpdated, refetch } = useScoreboard()
   /** Skip full-page loader when scoreboard data is already in context (e.g. after Pool ↔ Masters nav). */
   const [contentRevealed, setContentRevealed] = useState(() => data != null)
+  const [refreshLoader, setRefreshLoader] = useState(false)
+
+  const handleRefresh = () => {
+    setRefreshLoader(true)
+    refetch()
+  }
 
   if (!contentRevealed) {
     return (
       <ScoreboardLoadingScreen
         dataReady={!loading}
         onComplete={() => setContentRevealed(true)}
+      />
+    )
+  }
+
+  if (refreshLoader) {
+    return (
+      <ScoreboardLoadingScreen
+        key="tournament-refresh"
+        dataReady={!loading}
+        onComplete={() => setRefreshLoader(false)}
       />
     )
   }
@@ -42,7 +58,7 @@ export default function TournamentPage() {
         positionById={positionById}
         tournamentName={data.tournamentName}
         lastUpdated={lastUpdated}
-        onRefresh={refetch}
+        onRefresh={handleRefresh}
         busy={loading}
       />
     </>

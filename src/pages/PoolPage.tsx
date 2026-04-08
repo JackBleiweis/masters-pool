@@ -9,12 +9,29 @@ export default function PoolPage() {
   const { data, loading, error, lastUpdated, refetch } = useScoreboard()
   /** Skip full-page loader when scoreboard data is already in context (e.g. after Pool ↔ Masters nav). */
   const [contentRevealed, setContentRevealed] = useState(() => data != null)
+  /** Full-screen image loader after explicit Refresh (same UX as first load). */
+  const [refreshLoader, setRefreshLoader] = useState(false)
+
+  const handleRefresh = () => {
+    setRefreshLoader(true)
+    refetch()
+  }
 
   if (!contentRevealed) {
     return (
       <ScoreboardLoadingScreen
         dataReady={!loading}
         onComplete={() => setContentRevealed(true)}
+      />
+    )
+  }
+
+  if (refreshLoader) {
+    return (
+      <ScoreboardLoadingScreen
+        key="pool-refresh"
+        dataReady={!loading}
+        onComplete={() => setRefreshLoader(false)}
       />
     )
   }
@@ -37,7 +54,7 @@ export default function PoolPage() {
       <PoolLeaderboard
         snapshot={data}
         lastUpdated={lastUpdated}
-        onRefresh={refetch}
+        onRefresh={handleRefresh}
         busy={loading}
       />
     </>
