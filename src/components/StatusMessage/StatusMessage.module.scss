@@ -1,0 +1,21 @@
+@use '../../styles/design-system' as ds;
+
+.wrap {
+  padding: ds.$space-6;
+  text-align: center;
+  max-width: ds.$max-content-width;
+  margin: 0 auto;
+}
+
+.title {
+  margin: 0;
+  font-size: ds.$font-body;
+  font-weight: ds.$font-weight-medium;
+  color: ds.$color-text;
+}
+
+.detail {
+  margin: ds.$space-2 0 0;
+  color: ds.$color-text-muted;
+  font-size: ds.$font-small;
+}

@@ -1,0 +1,93 @@
+@use '../../styles/design-system' as ds;
+
+.shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.top {
+  padding: ds.$space-4 ds.$space-4 ds.$space-3;
+  max-width: ds.$max-content-width;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.brandRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: ds.$space-3 ds.$space-4;
+  margin-bottom: ds.$space-4;
+  justify-content: space-between;
+}
+
+.brand {
+  margin: 0;
+  font-size: ds.$font-title;
+  font-weight: ds.$font-weight-medium;
+  letter-spacing: -0.02em;
+  line-height: ds.$line-height-heading;
+}
+
+.championsBtn {
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  color: ds.$color-accent;
+  font: inherit;
+  font-size: ds.$font-small;
+  font-weight: ds.$font-weight-medium;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+
+  @media (hover: hover) {
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.nav {
+  display: flex;
+  gap: ds.$space-2;
+  padding: ds.$space-1;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: ds.$radius-md;
+  border: 1px solid ds.$color-border-subtle;
+}
+
+.navLink,
+.navLinkActive {
+  flex: 1;
+  text-align: center;
+  padding: ds.$space-2 ds.$space-4;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: ds.$radius-sm;
+  text-decoration: none;
+  font-size: ds.$font-small;
+  font-weight: ds.$font-weight-medium;
+  color: ds.$color-text-muted;
+  transition:
+    color ds.$transition-fast,
+    background ds.$transition-fast;
+}
+
+.navLinkActive {
+  color: ds.$color-bg-deep;
+  background: ds.$color-accent;
+}
+
+.navLink:hover {
+  color: ds.$color-text;
+}
+
+.main {
+  flex: 1;
+  padding-top: ds.$space-2;
+}

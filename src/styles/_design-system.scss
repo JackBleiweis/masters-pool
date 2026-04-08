@@ -1,0 +1,61 @@
+// Central tokens — spacing is multiples of 4px only.
+
+// Space scale
+$space-1: 4px;
+$space-2: 8px;
+$space-3: 12px;
+$space-4: 16px;
+$space-5: 20px;
+$space-6: 24px;
+$space-8: 32px;
+$space-10: 40px;
+
+// Augusta / Masters-inspired palette
+$color-bg-deep: #0d1f17;
+$color-bg-mid: #142921;
+$color-surface: #1b3328;
+$color-surface-elevated: #234030;
+$color-text: #f4f0e6;
+$color-text-muted: #9eb3a8;
+$color-accent: #c9a227;
+$color-accent-soft: rgba(201, 162, 39, 0.35);
+$color-border-subtle: rgba(244, 240, 230, 0.12);
+$color-score-under: #7dd3c0;
+$color-score-over: #e8a598;
+$color-focus-ring: $color-accent;
+
+// Radius (4px grid)
+$radius-sm: 8px;
+$radius-md: 12px;
+$radius-full: 9999px;
+
+// Shadows
+$shadow-soft: 0 8px 24px rgba(0, 0, 0, 0.35);
+
+// Typography
+$font-sans:
+  system-ui,
+  -apple-system,
+  'Segoe UI',
+  Roboto,
+  sans-serif;
+$font-weight-medium: 600;
+$line-height-body: 1.45;
+$line-height-heading: 1.2;
+
+$font-title: clamp(1.35rem, 4vw, 1.75rem);
+$font-body: 1rem;
+$font-small: 0.875rem;
+$font-caption: 0.8125rem;
+
+// Team avatar (pool leaderboard)
+$team-avatar-size: 48px;
+
+// Layout
+$max-content-width: 720px;
+$max-banner-width: 1200px;
+$banner-height: 40px;
+$breakpoint-md: 768px;
+
+// Transitions
+$transition-fast: 0.15s ease;

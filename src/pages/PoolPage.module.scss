@@ -1,0 +1,9 @@
+@use '../styles/design-system' as ds;
+
+.warn {
+  margin: 0 auto ds.$space-3;
+  max-width: ds.$max-content-width;
+  padding: 0 ds.$space-3;
+  color: ds.$color-score-over;
+  font-size: ds.$font-small;
+}

@@ -1,0 +1,112 @@
+@use '../../styles/design-system' as ds;
+
+.wrap {
+  max-width: ds.$max-content-width;
+  margin: 0 auto;
+  padding: 0 ds.$space-3 ds.$space-8;
+}
+
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: ds.$space-4;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: ds.$space-4;
+}
+
+.title {
+  margin: 0 0 ds.$space-1;
+  font-size: ds.$font-title;
+  font-weight: ds.$font-weight-medium;
+  line-height: ds.$line-height-heading;
+}
+
+.eventName {
+  margin: 0 0 ds.$space-1;
+  font-size: ds.$font-body;
+  color: ds.$color-text-muted;
+}
+
+.meta {
+  margin: 0;
+  font-size: ds.$font-caption;
+  color: ds.$color-text-muted;
+}
+
+.refresh {
+  flex-shrink: 0;
+  padding: ds.$space-2 ds.$space-4;
+  min-height: 44px;
+  border-radius: ds.$radius-sm;
+  border: 1px solid ds.$color-border-subtle;
+  background: ds.$color-surface-elevated;
+  color: ds.$color-text;
+  font: inherit;
+  font-size: ds.$font-small;
+  font-weight: ds.$font-weight-medium;
+  cursor: pointer;
+
+  &:disabled {
+    opacity: 0.7;
+    cursor: wait;
+  }
+
+  @media (hover: hover) {
+    &:not(:disabled):hover {
+      border-color: ds.$color-accent-soft;
+    }
+  }
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: ds.$space-2;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: ds.$space-3;
+  padding: ds.$space-3 ds.$space-4;
+  background: ds.$color-surface;
+  border-radius: ds.$radius-md;
+  border: 1px solid ds.$color-border-subtle;
+  box-shadow: ds.$shadow-soft;
+}
+
+.pos {
+  width: ds.$space-10;
+  font-size: ds.$font-small;
+  color: ds.$color-text-muted;
+  font-variant-numeric: tabular-nums;
+}
+
+.name {
+  flex: 1;
+  font-size: ds.$font-body;
+  font-weight: ds.$font-weight-medium;
+}
+
+.score {
+  font-variant-numeric: tabular-nums;
+  font-weight: ds.$font-weight-medium;
+  min-width: 44px;
+  text-align: right;
+}
+
+.scoreUnder {
+  color: ds.$color-score-under;
+}
+
+.scoreOver {
+  color: ds.$color-score-over;
+}
+
+.scoreEven {
+  color: ds.$color-text;
+}

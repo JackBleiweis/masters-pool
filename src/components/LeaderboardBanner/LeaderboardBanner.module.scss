@@ -1,0 +1,178 @@
+@use '../../styles/design-system' as ds;
+
+.banner {
+  width: 100%;
+  height: ds.$banner-height;
+  box-sizing: border-box;
+  background: linear-gradient(
+    90deg,
+    ds.$color-surface-elevated 0%,
+    ds.$color-surface 50%,
+    ds.$color-surface-elevated 100%
+  );
+  border-bottom: 1px solid ds.$color-border-subtle;
+}
+
+.inner {
+  box-sizing: border-box;
+  height: 100%;
+  max-width: ds.$max-banner-width;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: ds.$space-2;
+  padding: 0 ds.$space-3;
+}
+
+.leader {
+  flex: 0 0 38%;
+  max-width: 42%;
+  min-width: 0;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: ds.$space-2;
+  padding-right: ds.$space-2;
+  border-right: 1px solid ds.$color-border-subtle;
+
+  @media (min-width: ds.$breakpoint-md) {
+    flex: 0 0 25%;
+    max-width: 25%;
+  }
+}
+
+.rank {
+  flex-shrink: 0;
+  font-size: ds.$font-caption;
+  font-weight: ds.$font-weight-medium;
+  color: ds.$color-accent;
+  font-variant-numeric: tabular-nums;
+}
+
+.leaderNameFull,
+.leaderNameLast {
+  flex: 1;
+  min-width: 0;
+  font-size: ds.$font-caption;
+  font-weight: ds.$font-weight-medium;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.leaderNameFull {
+  @media (max-width: (ds.$breakpoint-md - 1px)) {
+    display: none;
+  }
+}
+
+.leaderNameLast {
+  display: none;
+
+  @media (max-width: (ds.$breakpoint-md - 1px)) {
+    display: block;
+  }
+}
+
+.leaderScore {
+  flex-shrink: 0;
+  margin: 0;
+  font-size: ds.$font-caption;
+  font-weight: ds.$font-weight-medium;
+  color: ds.$color-accent;
+  font-variant-numeric: tabular-nums;
+}
+
+.tickerMask {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  mask-image: linear-gradient(90deg, transparent, black 10px, black calc(100% - 10px), transparent);
+}
+
+.track {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: ds.$space-4;
+  width: max-content;
+  animation: leaderboardMarquee 55s linear infinite;
+}
+
+.segment {
+  flex-shrink: 0;
+  font-size: ds.$font-caption;
+  line-height: 1;
+  color: ds.$color-text-muted;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+  display: inline-flex;
+  align-items: center;
+  gap: ds.$space-2;
+}
+
+.dot {
+  width: ds.$space-1;
+  height: ds.$space-1;
+  border-radius: ds.$radius-full;
+  background: ds.$color-accent;
+  opacity: 0.6;
+}
+
+@keyframes leaderboardMarquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .track {
+    animation: none;
+  }
+
+  .tickerMask {
+    overflow-x: auto;
+    mask-image: none;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+.skeleton {
+  height: 100%;
+  width: 100%;
+  max-width: ds.$max-banner-width;
+  margin: 0 auto;
+  border-radius: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.04) 0%,
+    rgba(255, 255, 255, 0.08) 50%,
+    rgba(255, 255, 255, 0.04) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.2s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton {
+    animation: none;
+    background: rgba(255, 255, 255, 0.06);
+  }
+}

@@ -1,0 +1,28 @@
+@use '../../styles/design-system' as ds;
+
+.avatar {
+  width: ds.$team-avatar-size;
+  height: ds.$team-avatar-size;
+  border-radius: ds.$radius-full;
+  flex-shrink: 0;
+  overflow: hidden;
+  border: 2px solid ds.$color-border-subtle;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.2);
+  background: ds.$color-surface-elevated;
+  display: grid;
+  place-items: center;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.fallback {
+  font-size: ds.$font-small;
+  font-weight: ds.$font-weight-medium;
+  color: ds.$color-accent;
+  letter-spacing: 0.02em;
+}

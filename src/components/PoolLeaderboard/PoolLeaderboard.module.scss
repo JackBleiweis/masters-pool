@@ -1,0 +1,93 @@
+@use '../../styles/design-system' as ds;
+
+.wrap {
+  max-width: ds.$max-content-width;
+  margin: 0 auto;
+  padding: 0 ds.$space-3 ds.$space-8;
+}
+
+.pageTitle {
+  margin: 0 0 ds.$space-2;
+  font-size: ds.$font-title;
+  font-weight: ds.$font-weight-medium;
+  line-height: ds.$line-height-heading;
+}
+
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: ds.$space-4;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: ds.$space-4;
+}
+
+.eventName {
+  margin: 0 0 ds.$space-1;
+  font-size: ds.$font-small;
+  font-weight: ds.$font-weight-medium;
+  color: ds.$color-text-muted;
+}
+
+.meta {
+  margin: ds.$space-2 0 0;
+  font-size: ds.$font-caption;
+  color: ds.$color-text-muted;
+  line-height: 1.4;
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: ds.$space-2;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.rules,
+.refresh {
+  padding: ds.$space-2 ds.$space-4;
+  min-height: 44px;
+  border-radius: ds.$radius-sm;
+  border: 1px solid ds.$color-border-subtle;
+  background: ds.$color-surface-elevated;
+  color: ds.$color-text;
+  font: inherit;
+  font-size: ds.$font-small;
+  font-weight: ds.$font-weight-medium;
+  cursor: pointer;
+  transition:
+    background ds.$transition-fast,
+    border-color ds.$transition-fast;
+
+  @media (hover: hover) {
+    &:hover {
+      border-color: ds.$color-accent-soft;
+      background: ds.$color-surface;
+    }
+  }
+}
+
+.refresh {
+  &:disabled {
+    opacity: 0.7;
+    cursor: wait;
+  }
+
+  @media (hover: hover) {
+    &:disabled:hover {
+      border-color: ds.$color-border-subtle;
+      background: ds.$color-surface-elevated;
+    }
+  }
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: ds.$space-3;
+}
