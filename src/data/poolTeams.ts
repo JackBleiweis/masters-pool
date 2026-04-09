@@ -128,7 +128,7 @@ export const poolTeams: PoolTeamDefinition[] = [
   },
   {
     teamName: 'Jodi',
-    avatarSrc: '/photos/profiles/jodi.JPG',
+    avatarSrc: '/photos/profiles/jodi.jpeg',
     espnAthleteIds: [
       '6007', // Patrick Cantlay
       '4364873', // Viktor Hovland
