@@ -45,8 +45,8 @@ export const poolTeams: PoolTeamDefinition[] = [
       '3470', // Rory McIlroy
       '11378', // Robert MacIntyre
       '4848', // Justin Thomas
-      '3351', // Marc Leishman
-      '9261', // Abraham Ancer
+      '5076021', // Ryan Gerard
+      '4404992', // Ben Griffin
     ],
   },
   {
