@@ -1,5 +1,5 @@
 import { useId, useState } from 'react'
-import { pickDayDisplayCells, teamDayDisplayCells } from '../../utils/dayDisplay'
+import { pickPoolDisplayCells, teamDayDisplayCells } from '../../utils/dayDisplay'
 import { formatToPar } from '../../utils/formatToPar'
 import type { FourRounds, PoolPickRow } from '../../utils/poolScoring'
 import { DayScoreStrip } from '../DayScoreStrip/DayScoreStrip'
@@ -52,7 +52,9 @@ export function TeamAccordionRow({
         hidden={!open}
       >
         <ul className={styles.pickList}>
-          {picks.map((p) => (
+          {picks.map((p) => {
+            const { cells: poolDayCells, mcWeekendEmphasis } = pickPoolDisplayCells(p)
+            return (
             <li
               key={p.playerId}
               className={`${styles.pickRow} ${p.countsTowardPool ? '' : styles.pickRowDropped}`}
@@ -63,13 +65,19 @@ export function TeamAccordionRow({
               }
             >
               <div className={styles.pickMain}>
-                <span className={styles.pickName}>{p.displayName}</span>
+                <span className={`${styles.pickName} ${p.missedCut ? styles.pickNameMc : ''}`}>
+                  {p.displayName}
+                </span>
                 <span className={styles.pickPos}>{p.positionDisplay}</span>
                 {!p.countsTowardPool ? (
                   <span className={styles.droppedBadge}>Not counted (worst 4-day)</span>
                 ) : null}
               </div>
-              <DayScoreStrip cells={pickDayDisplayCells(p.dailyRaw)} className={styles.pickDays} />
+              <DayScoreStrip
+                cells={poolDayCells}
+                dayEmphasis={mcWeekendEmphasis}
+                className={styles.pickDays}
+              />
               <div className={styles.pickTotals}>
                 <span className={styles.pickPoolTotal} title="Pool: sum of daily scores">
                   {formatToPar(p.poolTotal)}
@@ -79,7 +87,8 @@ export function TeamAccordionRow({
                 </span>
               </div>
             </li>
-          ))}
+            )
+          })}
         </ul>
       </div>
     </div>

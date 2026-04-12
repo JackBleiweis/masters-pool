@@ -77,7 +77,8 @@ export function RulesModal({ isOpen, onClose }: RulesModalProps) {
           <p className={styles.formula}>(field average for that day) + 3</p>
           <p className={styles.p}>
             “Field average” means: take everyone still on the leaderboard who has a real number that
-            day, average their vs-par, then add 3 for your guy who’s already headed home.
+            day, average their vs-par, <strong>round to the nearest whole stroke</strong>, then add 3
+            for your guy who’s already headed home.
           </p>
 
           <div className={styles.example} role="note" aria-label="Example: missed cut">

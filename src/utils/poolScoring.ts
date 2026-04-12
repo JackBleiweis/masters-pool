@@ -4,18 +4,38 @@ import type { PoolTeamDefinition } from '../data/poolTeams'
 export type FourRounds = readonly [number, number, number, number]
 
 /**
- * Pool daily score = ESPN posted vs par for that round only.
- * Rounds not yet played (or missing on the leaderboard) count as 0 so the row Σ matches the visible numbers + “-” days.
+ * Field average vs par for one round (players who posted a number that day).
+ * Rounded to the nearest whole stroke (pool rules). Used for missed-cut D3/D4.
  */
-function pickDailyScores(p: LeaderboardPlayer | undefined): FourRounds {
+export function fieldAverageVsParForRound(
+  players: LeaderboardPlayer[],
+  roundIndex: 0 | 1 | 2 | 3
+): number {
+  const vals: number[] = []
+  for (const p of players) {
+    const v = p.roundToPar[roundIndex]
+    if (v != null && Number.isFinite(v)) vals.push(v)
+  }
+  if (vals.length === 0) return 0
+  const mean = vals.reduce((a, b) => a + b, 0) / vals.length
+  return Math.round(mean)
+}
+
+/**
+ * Pool daily scores: ESPN vs par for R1–R2; if missed cut, R3–R4 = field average that day + 3 (pool rules).
+ * Missing posted rounds still count as 0 for the pool sum where applicable; display uses dailyRaw for “—”.
+ */
+function pickDailyScoresForPool(
+  p: LeaderboardPlayer | undefined,
+  fieldAvgD3: number,
+  fieldAvgD4: number
+): FourRounds {
   if (!p) return [0, 0, 0, 0]
   const r = p.roundToPar
-  return [
-    r[0] ?? 0,
-    r[1] ?? 0,
-    r[2] ?? 0,
-    r[3] ?? 0,
-  ]
+  const mc = p.missedCut === true
+  const d3 = mc ? fieldAvgD3 + 3 : (r[2] ?? 0)
+  const d4 = mc ? fieldAvgD4 + 3 : (r[3] ?? 0)
+  return [r[0] ?? 0, r[1] ?? 0, d3, d4]
 }
 
 export interface PoolPickRow {
@@ -64,6 +84,8 @@ export function buildPoolStandings(
   positionById: Map<string, string>
 ): PoolTeamStanding[] {
   const byId = new Map(players.map((p) => [p.id, p]))
+  const fieldAvgD3 = fieldAverageVsParForRound(players, 2)
+  const fieldAvgD4 = fieldAverageVsParForRound(players, 3)
 
   const rows: PoolTeamStanding[] = teams.map((team) => {
     const picksBase = team.espnAthleteIds.map((id) => {
@@ -78,7 +100,7 @@ export function buildPoolStandings(
       else scoreLabel = '—'
 
       const dailyRaw = (p?.roundToPar ?? [null, null, null, null]) as FourRoundsNullable
-      const dailyScores = pickDailyScores(p)
+      const dailyScores = pickDailyScoresForPool(p, fieldAvgD3, fieldAvgD4)
       const poolTotal = dailyScores.reduce((a, b) => a + b, 0)
 
       return {

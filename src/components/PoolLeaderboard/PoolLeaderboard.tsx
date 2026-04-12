@@ -69,6 +69,18 @@ export function PoolLeaderboard({ snapshot, lastUpdated, onRefresh, busy }: Pool
           />
         ))}
       </div>
+
+      <aside className={styles.mcFootnote} aria-label="How missed cut scores are calculated">
+        <p className={styles.mcFootnoteText}>
+          <strong>Missed cut (D3 &amp; D4):</strong> For Saturday and Sunday, a cut player has score. So their pool
+          line is{' '}
+          <span className={styles.mcFootnoteFormula}>
+            (field average vs par that day) + 3
+          </span>
+          , where the average is over everyone who posted a score that round, then{' '}
+          <strong>rounded to the nearest whole stroke</strong> before the +3.
+        </p>
+      </aside>
     </div>
   )
 }

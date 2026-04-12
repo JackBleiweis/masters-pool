@@ -34,7 +34,7 @@ export interface LeaderboardPlayer {
   /** Raw ESPN total-to-par token: E, +2, -5, MC, etc. */
   scoreRaw: string
   missedCut: boolean
-  /** Per-round score vs par from `linescores` (period 1–4, `displayValue`). */
+  /** Per-round score vs par from ESPN `linescores` (each period is that round vs par). */
   roundToPar: FourRoundsNullable
 }
 
@@ -49,7 +49,8 @@ export type ScoreboardResult = { ok: true; data: TournamentSnapshot } | { ok: fa
 /** Parse ESPN total relative to par; null if absent or non-numeric status (e.g. MC). */
 export function parseScoreToPar(raw: string | undefined | null): number | null {
   if (raw == null || raw === '') return null
-  const s = String(raw).trim()
+  let s = String(raw).trim().replace(/\u2212/g, '-')
+  if (s === '-') return null
   const upper = s.toUpperCase()
   if (upper === 'E') return 0
   if (isMissedCutToken(upper)) return null
@@ -81,7 +82,10 @@ interface EventShape {
   competitions?: { competitors?: EspnCompetitor[] }[]
 }
 
-/** Map ESPN round rows to vs-par for days 1–4 (uses each round’s `displayValue`). */
+/**
+ * Map ESPN `linescores` (periods 1–4) to vs par for each round.
+ * Each period’s `displayValue` is that **round’s** strokes vs par (not a running tournament total).
+ */
 export function parseLinescoresToRoundToPar(linescores: unknown): FourRoundsNullable {
   const out: [number | null, number | null, number | null, number | null] = [
     null,
@@ -95,10 +99,23 @@ export function parseLinescoresToRoundToPar(linescores: unknown): FourRoundsNull
     const row = entry as { period?: number; displayValue?: string }
     const period = row.period
     if (typeof period !== 'number' || period < 1 || period > 4) continue
-    const toPar = parseScoreToPar(row.displayValue)
-    if (toPar !== null) out[period - 1] = toPar
+    out[period - 1] = parseScoreToPar(row.displayValue)
   }
   return out
+}
+
+/**
+ * ESPN keeps a numeric total in `score` for many MC players (not the token "MC").
+ * Missed cut: the top-level `linescores` row for **period 3** has `value: 0` (Sat not played).
+ */
+function inferMissedCutFromEspnLinescores(linescores: unknown): boolean {
+  if (!Array.isArray(linescores)) return false
+  for (const entry of linescores) {
+    if (!entry || typeof entry !== 'object') continue
+    const row = entry as { period?: number; value?: number }
+    if (row.period === 3 && row.value === 0) return true
+  }
+  return false
 }
 
 export function mapCompetitorToPlayer(raw: EspnCompetitor): LeaderboardPlayer | null {
@@ -107,7 +124,8 @@ export function mapCompetitorToPlayer(raw: EspnCompetitor): LeaderboardPlayer | 
   const displayName = raw.athlete?.displayName ?? raw.athlete?.fullName ?? 'Unknown'
   const order = typeof raw.order === 'number' ? raw.order : 9999
   const scoreRaw = raw.score != null ? String(raw.score) : ''
-  const missedCut = isMissedCutRaw(scoreRaw)
+  const missedCut =
+    isMissedCutRaw(scoreRaw) || inferMissedCutFromEspnLinescores(raw.linescores)
   const totalToPar = parseScoreToPar(scoreRaw)
   const roundToPar = parseLinescoresToRoundToPar(raw.linescores)
   return {

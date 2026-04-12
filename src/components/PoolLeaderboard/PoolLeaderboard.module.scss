@@ -92,3 +92,25 @@
   flex-direction: column;
   gap: ds.$space-3;
 }
+
+.mcFootnote {
+  margin-top: ds.$space-8;
+  padding-top: ds.$space-4;
+  border-top: 1px solid ds.$color-border-subtle;
+}
+
+.mcFootnoteText {
+  margin: 0;
+  font-size: ds.$font-caption;
+  line-height: ds.$line-height-body;
+  color: ds.$color-mc-pool;
+
+  strong {
+    font-weight: ds.$font-weight-medium;
+  }
+}
+
+.mcFootnoteFormula {
+  font-weight: ds.$font-weight-medium;
+  white-space: nowrap;
+}
